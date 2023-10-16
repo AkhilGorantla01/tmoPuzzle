@@ -39,10 +39,10 @@ export class ReadingListComponent {
    }
 
   finishFromReadingList(test:ReadingListItem) {
-    let now = new Date();
-    let item : ReadingListItem = {bookId:test.bookId,...test};
+    const current_date: Date = new Date();
+    const item : ReadingListItem = {bookId:test.bookId,...test};
     item.finished = true;
-    item.finishedDate =now.toDateString();
+    item.finishedDate =current_date.toISOString();
     this.store.dispatch(finishBookReadingList({item} ));
   }
  
