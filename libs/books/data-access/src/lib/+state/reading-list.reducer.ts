@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { createEntityAdapter, EntityAdapter, EntityState,Update } from '@ngrx/entity';
 
 import * as ReadingListActions from './reading-list.actions';
 import { ReadingListItem } from '@tmo/shared/models';
@@ -52,7 +52,10 @@ const readingListReducer = createReducer(
   ),
   on(ReadingListActions.removeFromReadingList, (state, action) =>
     readingListAdapter.removeOne(action.item.bookId, state)
-  )
+  ),
+  on(ReadingListActions.finishBookReadingList, (state, action) =>
+  readingListAdapter.updateOne({id:action.item.bookId,changes:action.item} , state)
+)
 );
 
 export function reducer(state: State | undefined, action: Action) {
